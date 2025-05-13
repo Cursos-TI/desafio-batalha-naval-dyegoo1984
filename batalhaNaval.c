@@ -4,11 +4,52 @@
 // Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
 // Siga os comentários para implementar cada parte do desafio.
 
+//Funções para inserir navios
+void Fragata(int x, int y, int campo[10][10]){
+    //Fragata percorre o campo de batalha no sentido leste/oeste
+    for(int i = x; i < (x+3); i++){
+        campo[x][i] = 2;
+    }
+}
+
+void Crusador(int x, int y, int campo[10][10]){
+    //Crusador percorre o campo de batalha no sentido Norte/Sul
+    for(int i = x; i < (x+3); i++){
+        campo[i][y] = 2;
+    }
+}
+
+//Exibir Campo de Batalha
+void CampoDeBatalha(int campo[10][10]){
+    printf("X - A B C D E F G H I J ");
+    for(int i=0; i<10; i++){
+        printf("\n%d - ", i);
+        for(int j=0; j<10; j++){
+            printf("%d ", campo[i][j]);
+        }
+    }
+}
+
+
 int main() {
     // Nível Novato - Posicionamento dos Navios
     // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
+   
+    int tabuleiro[10][10];
+
+    for(int i=0; i<10; i++){
+        for(int j=0; j<10; j++){
+            tabuleiro[i][j]=0;
+        }
+    }
+    
     // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
+    Fragata(2,3,tabuleiro);
+    Crusador(6,4,tabuleiro);
+
     // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
+    CampoDeBatalha(tabuleiro);
+    
 
     // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
     // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
