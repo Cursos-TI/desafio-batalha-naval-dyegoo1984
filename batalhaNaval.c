@@ -10,14 +10,14 @@
 void Fragata(int x, int y, int campo[L][C]){
     //Fragata percorre o campo de batalha no sentido Norte/Sul
     for(int i = x; i < (x+3); i++){
-        campo[i][y] = 1;
+        campo[i][y] = 3;
     }
 }
 
 void Crusador(int x, int y, int campo[L][C]){
     //Crusador percorre o campo de batalha no sentido leste/oeste
     for(int i = y; i < (y+3); i++){
-        campo[x][i] = 2;
+        campo[x][i] = 3;
     }
 }
 
@@ -30,8 +30,41 @@ void Galeao(int x, int y, int campo[L][C]){
 
 void Destroyer(int x, int y, int campo[L][C]){
     //Destroyer percorre o campo de batalha no sentido Nordeste/Sudoeste
-    for(int j = y, i = x; j < (y+3), i > (x-3); j++, i--){
-        campo[i][j] = 4;
+    for(int j = y, i = x; j > (y-3), i < (x+3); j--, i++){
+        campo[i][j] = 3;
+    }
+}
+
+//Habilidades especiais
+void Habilidade(int opcao, int x, int y, int campo[L][C]){
+    switch (opcao)
+    {
+    case 1:
+    //cone
+        for(int i = x; i < (x+3); i++){
+            if(i == x){
+                campo[i][y+2]=1;
+            }else if(i == (x+1)){
+                for(int j = y+1; j < y+4; j++){
+                    campo[i][j]=1;
+                }
+            }else{
+                for(int j = y; j < y+5; j++){
+                    campo[i][j]=1;
+                }
+        }
+        break;
+    case 2:
+        /* octaedro */
+        break;
+    case 3:
+        /* cruz */
+        break;
+    
+    default:
+        printf("Habilidade não encontrada!");
+        break;
+        }
     }
 }
 
@@ -39,12 +72,15 @@ void Destroyer(int x, int y, int campo[L][C]){
 void CampoDeBatalha(int campo[L][C]){
     printf("X - A B C D E F G H I J ");
     for(int i=0; i<L; i++){
+
         printf("\n%d - ", i);
         for(int j=0; j<C; j++){
             printf("%d ", campo[i][j]);
         }
     }
 }
+
+
 
 
 int main() {
@@ -70,14 +106,15 @@ int main() {
     // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
     // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
     // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    Fragata(1,6,tabuleiro);
-    Crusador(5,5,tabuleiro);
+    Fragata(2,0,tabuleiro);
+    Crusador(0,5,tabuleiro);
     Galeao(7,1, tabuleiro);
-    Destroyer(2,1, tabuleiro);
+    Destroyer(4,5, tabuleiro);
+    Habilidade(1,0,0,tabuleiro);
 
     // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
     CampoDeBatalha(tabuleiro);
-    
+
     // Nível Mestre - Habilidades Especiais com Matrizes
     // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
     // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
